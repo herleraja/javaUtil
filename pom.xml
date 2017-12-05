@@ -71,5 +71,42 @@
 			<version>1.4</version>
 		</dependency>
 
+		<!-- dependency for marshelling / unmarshelling .xml file -> .java file 
+			and otherway round -->
+		<dependency>
+			<groupId>javax.xml</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.1</version>
+		</dependency>
+
+
 	</dependencies>
+
+
+	<build>
+		<plugins>
+
+			<!-- to generate java files from xsd -->
+			<plugin>
+				<groupId>org.jvnet.jaxb2.maven2</groupId>
+				<artifactId>maven-jaxb2-plugin</artifactId>
+				<version>0.13.2</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<schemaDirectory>src/main/resources</schemaDirectory>
+							<generateDirectory>target/generated-sources</generateDirectory>
+							<generatePackage>com.herle.java.models</generatePackage>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+		</plugins>
+	</build>
+
 </project>

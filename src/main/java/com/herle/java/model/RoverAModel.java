@@ -3,6 +3,9 @@ package com.herle.java.model;
 import java.io.Serializable;
 import java.util.Random;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class RoverAModel implements Serializable {
 
 	/**

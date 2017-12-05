@@ -10,6 +10,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -31,8 +36,51 @@ public class ExcelUtil {
 
 	public static void main(String[] args) {
 
-		auditRequest("RoverA", JSONUtil.getJSONString(RoverAModel.getRandomRoverClientA()));
-		readFromExcelFile("./src/main/resources/Data.xls", "RoverA");
+		/*
+		 * auditRequest("RoverA",
+		 * JSONUtil.getJSONString(RoverAModel.getRandomRoverClientA()));
+		 * 
+		 * readFromExcelFile("./src/main/resources/Data.xls", "RoverA");
+		 */
+
+		marshal(RoverAModel.getRandomRoverClientA());
+		unMarshal("./src/main/resources/RoverAModel.xml");
+
+	}
+
+	private static void unMarshal(String fileName) {
+		try {
+			myLogger.info("Test");
+			File file = new File(fileName);
+			JAXBContext jaxbContext = JAXBContext.newInstance(RoverAModel.class);
+
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+			RoverAModel roverAModel = (RoverAModel) jaxbUnmarshaller.unmarshal(file);
+			System.out.println(roverAModel);
+
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private static void marshal(RoverAModel roverAModel) {
+
+		try {
+
+			File file = new File("./src/main/resources/RoverAModel.xml");
+			JAXBContext jaxbContext = JAXBContext.newInstance(RoverAModel.class);
+			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+
+			// output pretty printed
+			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+			jaxbMarshaller.marshal(roverAModel, file);
+			jaxbMarshaller.marshal(roverAModel, System.out);
+
+		} catch (JAXBException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	private static void addRowEntryForRoverAModel(Sheet sheet, int rowNumber, RoverAModel roverAModel) {
@@ -40,7 +88,7 @@ public class ExcelUtil {
 		Row row = sheet.createRow(rowNumber);
 
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		
+
 		Cell cell = row.createCell(0);
 		cell.setCellValue(dateFormat.format(new Date()));
 

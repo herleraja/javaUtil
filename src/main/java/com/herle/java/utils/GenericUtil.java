@@ -1,6 +1,5 @@
 package com.herle.java.utils;
 
-import java.io.File;
 import java.io.IOException;
 
 import org.slf4j.Logger;
@@ -29,8 +28,12 @@ public class GenericUtil {
 		String currentDir = System.getProperty("user.dir");
 		myLogger.info("To Current dir using System:" + currentDir);
 
-		// To Create a folder(directory) in current working directory using java
-		new File(System.getProperty("user.dir") + "/folder").mkdir();
+		/***
+		 * To Create a folder(directory) in current working directory using java
+		 * //new File(System.getProperty("user.dir") + "/folder").mkdir();
+		 * 
+		 **/
+
 	}
 
 }
