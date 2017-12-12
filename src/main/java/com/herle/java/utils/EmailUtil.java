@@ -1,7 +1,6 @@
 package com.herle.java.utils;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -30,7 +29,8 @@ public class EmailUtil {
 
 	public static void main(String[] args) throws IOException {
 
-		readPropertieFile("config.properties");
+		username = GenericUtil.readPropertyConfigFile("email.user");
+		password = GenericUtil.readPropertyConfigFile("email.pwd");
 
 		EmailUtil emailUtil = new EmailUtil();
 		emailUtil.sendEmail("Testing Subject", "herleraja@gmail.com", "herleraja@gmail.com",
@@ -119,44 +119,6 @@ public class EmailUtil {
 			myLogger.info(
 					"\n LocalizedMessage : " + e.getLocalizedMessage() + "\n  		 Message :: " + e.getMessage()
 							+ "\n toString :: " + e.toString() + "\n:		 StackTrace :: " + e.getStackTrace());
-		}
-
-	}
-
-	private static void readPropertieFile(String filename) {
-
-		Properties prop = new Properties();
-		InputStream input = null;
-
-		try {
-
-			input = EmailUtil.class.getClassLoader().getResourceAsStream(filename);
-			if (input == null) {
-				myLogger.info("Sorry, unable to find " + filename);
-				return;
-			}
-
-			prop.load(input);
-
-			username = prop.getProperty("email.user");
-			password = prop.getProperty("email.pwd");
-
-			myLogger.info("Property file read successful");
-
-		} catch (IOException ex) {
-			myLogger.info(
-					"\n LocalizedMessage : " + ex.getLocalizedMessage() + "\n  		 Message :: " + ex.getMessage()
-							+ "\n toString :: " + ex.toString() + "\n:		 StackTrace :: " + ex.getStackTrace());
-		} finally {
-			if (input != null) {
-				try {
-					input.close();
-				} catch (IOException e) {
-					myLogger.info("\n LocalizedMessage : " + e.getLocalizedMessage() + "\n  		 Message :: "
-							+ e.getMessage() + "\n toString :: " + e.toString() + "\n:		 StackTrace :: "
-							+ e.getStackTrace());
-				}
-			}
 		}
 
 	}

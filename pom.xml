@@ -12,9 +12,43 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<camel-version>2.19.4</camel-version>
 	</properties>
 
 	<dependencies>
+
+		<!-- dependency for the appcahe camel impl -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jms</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-stream</artifactId>
+			<version>${camel-version}</version>
+		</dependency>
+
+		<!-- dependency for active MQ -->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-core</artifactId>
+			<version>5.7.0</version>
+		</dependency>
+		<dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-camel</artifactId>
+            <version>5.6.0</version>
+        </dependency>
+		
+
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -97,7 +131,7 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<schemaDirectory>src/main/resources</schemaDirectory>
+							<schemaDirectory>src/main/resources/xsd</schemaDirectory>
 							<generateDirectory>target/generated-sources</generateDirectory>
 							<generatePackage>com.herle.java.models</generatePackage>
 						</configuration>
