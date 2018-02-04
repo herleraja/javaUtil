@@ -7,7 +7,12 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +46,38 @@ public class GenericUtil {
 		getCurrentMachineIpAddress();
 		getCurrentMachineMACAddress();
 
+		/***
+		 * chartSchedulerTask will get all the values from country hashMap and
+		 * store it in chartLog file.
+		 */
+
+		TimerTask chartSchedulerTask = new GenericUtil.ChartSchedulerTask();
+		Timer timer = new Timer();
+		timer.scheduleAtFixedRate(chartSchedulerTask, getTomorrowMorning1am(), 1000 * 60 * 60 * 24);
+
+	}
+
+	public static class ChartSchedulerTask extends TimerTask {
+
+		/**
+		 * Implements TimerTask's abstract run method.
+		 */
+		@Override
+		public void run() {
+			System.out.println("..............................Testing Scheduler...................................");
+
+		}
+
+	}
+
+	private static Date getTomorrowMorning1am() {
+		Calendar tomorrow = new GregorianCalendar();
+		tomorrow.add(Calendar.DATE, 1);
+
+		Calendar result = new GregorianCalendar(tomorrow.get(Calendar.YEAR), tomorrow.get(Calendar.MONTH),
+				tomorrow.get(Calendar.DATE), 1, 0);
+
+		return result.getTime();
 	}
 
 	public static String readPropertyConfigFile(String propertyName) {
