@@ -22,7 +22,7 @@ public class QRBARCodeUtil {
 	private static final Logger myLogger = LoggerFactory.getLogger(QRBARCodeUtil.class);
 
 	public static void main(String[] args) {
-		generateBARCode("herle@rhrk.uni-kl.de", "./src/main/resources/herle@rhrk.uni-kl.de.png", "png", 250, 250);
+		generateQRCode("https://opcfoundation.org/resources/multimedia", "./src/main/resources/OPC_UA_multimedia.png", "png", 250, 250);
 	}
 
 	public static void generateQRCode(String textMessage, String filePath, String fileType, int width, int height) {
